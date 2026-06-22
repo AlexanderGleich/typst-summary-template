@@ -1,0 +1,26 @@
+name: Build Typst PDF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: typst-community/setup-typst@v5
+
+      - name: Compile PDF
+        run: typst compile main.typ main.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: main.pdf
+          path: main.pdf
+          archive: false
