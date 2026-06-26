@@ -1,3 +1,5 @@
+#import "template.typ" : *
+
 #let gutter = 4mm
 
 #set page(
@@ -64,37 +66,34 @@
 #set columns(gutter: gutter)
 
 #set text(
-  size: 8.5pt,
+  size: 8pt,
 )
 
 #set par(
-  leading: 0.95em,
-  justify: true,
+  leading: 0.3em,
+)
+
+#set table(
+  inset: 1mm,
+  stroke: (x, y) => if y == 1 {
+    (top: 1pt, bottom: 0.5pt)
+  } else {
+    (bottom: 0.5pt)
+  } 
+)
+#set heading(numbering: "1.1 -")
+
+#show heading: it => block(
+  above: 0.6em,
+  below: 0.4em,
+  text(weight: "bold", size: 10pt)[#it]
 )
 
 #show heading.where(level: 1): it => block(
-  below: 0.4em,
-  text(weight: "bold", size: 12pt)[#it.body]
+  below: 0.8em,
+  text(weight: "bold", size: 12pt)[#it]
 )
 
-#show heading.where(level: 2): it => block(
-  above: 0.4em,
-  below: 0.2em,
-  text(weight: "bold", size: 9pt)[#it.body]
-)
-
-= Material Summary
-
-== Topic 1
-Short, dense summary for your notes. Using four columns in landscape format lets you use the page very efficiently. For the last page, you can manually balance columns if needed with `#colbreak()`. [page:1]
-
-== Topic 2
-- Definition 1
-- Definition 2
-- Definition 3
-
-== Formulas
-\(a^2 + b^2 = c^2\)
-
-== Key Phrases
-Compactly note important points.
+#todo-outline()
+#include "chapters/first.typ"
+#include "chapters/second.typ"
